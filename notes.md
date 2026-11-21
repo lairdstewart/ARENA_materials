@@ -6,7 +6,8 @@
    `~/Downloads/`. Run the setup script (only required first time)
 2. Run `ssh gpu-cedar`
 3. Clone this repository `https://github.com/lairdstewart/ARENA_materials`
-4. get to work!
+4. To push changes, copy personal access token when it asks for password
+5. In VS code, do command+shift+p, remote-ssh connect to host, then pick cpu-cedar
 
 Resources
 - #link(
