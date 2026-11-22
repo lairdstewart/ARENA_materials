@@ -6,15 +6,19 @@
    `~/Downloads/`. Run the setup script (only required first time)
 2. Run `ssh gpu-cedar`
 3. Clone this repository `https://github.com/lairdstewart/ARENA_materials`
-4. To push changes, copy personal access token when it asks for password
+4. `./install_uv.sh`
 5. In VS code, do command+shift+p, remote-ssh connect to host, then pick cpu-cedar
+6. command+shift+p, Python: select interpreter, ./venv/bin/python
+7. select kernel -> python environments -> pick that kernel
+8. To push changes, copy personal access token when it asks for password
 
 Resources
+
 - #link(
-    "https://github.com/akhilvasvani/Linear-Algebra-Basics/tree/master",
+  "https://github.com/akhilvasvani/Linear-Algebra-Basics/tree/master",
   )[Linear Algebra Basics for ML/DL]
 - #link("https://explained.ai/matrix-calculus/")[Matrix Calculus for Deep
-    Learning]
+  Learning]
 
 # November 7th
 
@@ -35,7 +39,7 @@ Einstein notation rules:
 2. A letter appearing once is kept and becomes a dimension of the result.
 3. The same letter takes the same value everywhere it appears in the term.
 4. There is no row/column distinction; matching letters alone determine what
-  gets multiplied.
+   gets multiplied.
 5. In an equation, both sides must have the same kept letters.
 
 Today I (1) finished chapter 2 of https://www.deeplearningbook.org/ to refresh
@@ -92,16 +96,42 @@ linearly in memory in a computer engineering class.
 the distinction between repeat, reduce, and rearrange is the number of elements
 in the resulting tensor. It is more, less, and the same respectively.
 
-
 ## broadcasting
 
 1. You can prepend dummy dimensions (of size 1) to the start of a tensor until
-  both have the same number of dimensions
+   both have the same number of dimensions
 2. After this point, if some dimension has size 1 in one of the tensors, it can
-  be repeated until it matches the size of the corresponding dimension in the
-  other tensor
+   be repeated until it matches the size of the corresponding dimension in the
+   other tensor
 
 # November 21st
 
 Goal today is to get the GPUs setup then start on
 
+what i did
+
+- Setup ssh/gpu
+- Arena lecture week 1 day 1: https://www.youtube.com/embed/11Z50mi8dSg
+- Neel nanda's video on "a mathematical framework for transformer interp" https://www.youtube.com/watch?v=KV5gbOmHbjU
+  very good.
+
+Things i learned
+
+- tokenization of long math equations is sort of a mess, no wonder early small
+  models struggled with math.
+- neel nanda's explanation
+  - Neel nanda's explanation of position is simply that the residual stream is
+    `d` dimensional, and the model is obviously representing much more than `d`
+    ideas, so it can't have every "idea" be orthogonal in this `d` dimensional
+    space. there is the nice result about how if you don't require total
+    orthogonality, but like dot product of 0.1 between vectors then you can
+    squeeze in exponentially more semi-orthogonal directions into this space.
+    Hadn't heard superposition described in that way before.
+  - From need nanda's video, there is an idea that some deeper layers do
+    "residual stream cleaning" where if previous layers used some direction within
+    the residual stream to communicate with one aother but that communication is
+    no longer needed, it can subtract out that direction/message to "clean up" the
+    residual stream. woah. https://www.youtube.com/watch?v=KV5gbOmHbjU
+  - Thinking of main transformer head equation as `AXW_v^TW_o^T` is useful. It
+    shows that W_v and W_o need to be thought of together as a single matrix since
+    they are multiplied by eachother.
